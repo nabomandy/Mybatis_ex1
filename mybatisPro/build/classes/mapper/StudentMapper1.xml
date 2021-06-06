@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- src/mapper/StudentMapper1.xml -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dyd/mybatis-3-mapper.dtd">
+<mapper namespace="student">
+ 
+	<resultMap type="student" id="studentRMap">
+		<result column="deptno1" jdbcType="BIGINT" property="major1" />
+		<result column="deptno2" jdbcType="BIGINT" property="major2" />
+	</resultMap>
+ 
+	<insert id="insert" parameterType="student">
+		insert into student
+		(studno,
+		name, grade, id, jumin, deptno1)
+		values
+		(#{studno}, #{name}, #{grade},
+		#{id}, #{jumin}, #{major1})
+	</insert>
+
+	<select id="selectno" parameterType="int" resultType="student">
+		select *
+		from student where studno= #{value}
+	</select>
+
+	<select id="selectnomap" parameterType="int"
+		resultMap="studentRMap">
+		select * from student where studno= #{value}
+	</select>
+
+
+	<update id="update" parameterType="student">
+		<!-- student를 int로 해도 되네 왜 그러지 -->
+		update student set
+		grade=#{grade}, weight=#{weight}, height=#{height},
+		profno=#{profno}
+		where studno = #{studno}
+	</update>
+
+
+	<delete id="delete" parameterType="int">
+		delete from student where
+		studno = #{value}
+	</delete>
+
+	<select id="selete2" resultType="student">
+		select * from student where ${col} >= #{value}
+	</select>
+
+
+
+
+</mapper>
+
+
+
